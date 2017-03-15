@@ -3,6 +3,6 @@
 
 <div class="container">
     <div>
-        {{ $page->detail }}
+        {!! $page->detail !!}
     </div>
 </div>

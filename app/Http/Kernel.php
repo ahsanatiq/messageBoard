@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.role' => \App\Http\Middleware\AuthenticateRole::class,
         'first.login' => \App\Http\Middleware\RedirectIfFirstLogin::class,
+        'auth.admin.role' => \App\Http\Middleware\AuthenticateAdminRole::class,
     ];
 }

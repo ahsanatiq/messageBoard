@@ -15,6 +15,7 @@ class CreateMessages extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('name');
             $table->text('detail');
             $table->string('image')->nullable();
             $table->text('files')->nullable();

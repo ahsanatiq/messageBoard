@@ -16,6 +16,7 @@
                 @endforeach
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url('http://public.'.parse_url(config('app.url'))['host']) }}">Public Messages</a></li>
                 @if(auth()->user())
                 <li class="dropdown">
                     <a id="user-menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
@@ -25,6 +26,7 @@
                         @if(auth()->user()->role->name=='Admin')
                             <li><a id="nav-bar-add-message" href="{{ route('messages.add') }}">Add Message</a></li>
                         @endif
+                        <li><a href="{{ url('http://private.'.parse_url(config('app.url'))['host']) }}">Private Messages</a></li>
                         @if(auth()->user()->role->name=='Super Admin')
                         <li><a id="nav-bar-manage-users" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a id="nav-bar-manage-pages" href="{{ route('pages.index') }}">Manage Pages</a></li>

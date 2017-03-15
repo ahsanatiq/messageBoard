@@ -17,12 +17,21 @@ class userSeeder extends Seeder
         DB::table('users')->delete();
 
         $superAdminRole = Role::whereName('Super Admin')->first();
+        $AdminRole = Role::whereName('Admin')->first();
 
         $user = factory(App\User::class)->create([
             'email' => 'superadmin@abc.com',
             'password' => bcrypt('superadmin'),
-            'role_id' => $superAdminRole->id
+            'role_id' => $superAdminRole->id,
+            'first_login' => true
         ]);
+        $user = factory(App\User::class)->create([
+            'email' => 'admin@abc.com',
+            'password' => bcrypt('admin'),
+            'role_id' => $AdminRole->id,
+            'first_login' => true
+        ]);
+
 //        $user->password=bcrypt('superadmin');
 //        $user->save();
     }

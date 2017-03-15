@@ -17,7 +17,10 @@ class PagesSeeder extends Seeder
         DB::table('pages')->delete();
         Page::create([
             'name'   => 'Home',
-            'detail' => 'Welcome',
+            'detail' => '<div class="jumbotron">
+                            <h1>Hello World!</h1>
+                            <p>This is a demo message message board .</p>
+                          </div>',
             'menu_name' => 'Home',
             'status' => 'active',
             'user_id' => User::whereEmail('superadmin@abc.com')->get()->first()->id
