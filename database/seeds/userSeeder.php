@@ -15,14 +15,12 @@ class userSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        $superAdminRole = Role::whereName('superadmin')->first();
+        $superAdminRole = Role::whereName('Super Admin')->first();
 
         $user = factory(App\User::class)->create([
             'email' => 'superadmin@abc.com',
             'password' => bcrypt('superadmin'),
             'role_id' => $superAdminRole->id
         ]);
-
-
     }
 }

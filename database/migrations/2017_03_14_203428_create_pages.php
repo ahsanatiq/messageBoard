@@ -15,7 +15,7 @@ class CreatePages extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('name');
             $table->text('detail');
             $table->string('menu_name');
             $table->enum('status',['active','inactive']);

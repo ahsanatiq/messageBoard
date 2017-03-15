@@ -9,21 +9,33 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'phone',
+        'website',
+        'country',
+        'region',
+        'district',
+        'city',
+        'address',
+        'object_type',
+        'role_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static $rules = [
+        'name' => 'required|max:255',
+        'email' => 'required|email|max:255|unique:users',
+    ];
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 }

@@ -15,15 +15,15 @@ class roleSeeder extends Seeder
         DB::table('roles')->delete();
 
         Role::create([
-            'name'   => 'user'
+            'name'   => 'User'
         ]);
 
         Role::create([
-            'name'   => 'admin'
+            'name'   => 'Admin'
         ]);
 
         Role::create([
-            'name'   => 'superadmin'
+            'name'   => 'Super Admin'
         ]);
     }
 }

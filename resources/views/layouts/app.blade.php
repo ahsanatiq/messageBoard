@@ -17,6 +17,11 @@
 <body>
     @yield('content')
 
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">&copy; {{ date('Y').' '.config('app.name').'. All rights reserved.'}}</p>
+        </div>
+    </footer>
     {!! Html::script(mix('/js/app.js')) !!}
     @yield('footer')
 </body>
