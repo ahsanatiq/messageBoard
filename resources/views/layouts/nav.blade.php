@@ -22,6 +22,9 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('profile.password') }}">Change Password</a></li>
                         <li><a href="{{ route('profile.index') }}">Edit Profile</a></li>
+                        @if(auth()->user()->role->name=='Admin')
+                            <li><a id="nav-bar-add-message" href="{{ route('messages.add') }}">Add Message</a></li>
+                        @endif
                         @if(auth()->user()->role->name=='Super Admin')
                         <li><a id="nav-bar-manage-users" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a id="nav-bar-manage-pages" href="{{ route('pages.index') }}">Manage Pages</a></li>

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->enum('object_type', ['delta', 'alfa', 'beta', 'gamma'])->nullable();
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
+            $table->boolean('first_login')->default(false);
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('no action');
             $table->rememberToken();

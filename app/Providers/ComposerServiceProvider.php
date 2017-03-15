@@ -29,7 +29,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         });
 
-        View::composer(['users.add','users.edit'], function ($view) {
+        View::composer(['users.add','users.edit','profile.index'], function ($view) {
             $view->with('objectTypeList', [
                 '' => 'Select',
                 'alfa'=>'alfa',
@@ -38,7 +38,6 @@ class ComposerServiceProvider extends ServiceProvider
                 'delta'=>'delta'
             ]);
 
-            // $rolesList = [''=>'Select'];
             foreach(Role::all() as $role) {
                 $rolesList[$role->id] = $role->name;
             }

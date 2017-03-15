@@ -3,6 +3,7 @@
 use App\Role;
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class userSeeder extends Seeder
 {
@@ -22,5 +23,7 @@ class userSeeder extends Seeder
             'password' => bcrypt('superadmin'),
             'role_id' => $superAdminRole->id
         ]);
+//        $user->password=bcrypt('superadmin');
+//        $user->save();
     }
 }

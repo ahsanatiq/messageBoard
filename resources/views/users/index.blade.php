@@ -29,7 +29,7 @@
                     <td>{{ $user->created_at }}</td>
                     <td>
                         <a id="edit-user-{{ $user->id }}" href="{{ route('users.edit', ['id'=>$user->id]) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                        @if($user->role->name!='Super Admin')
+                        @if($user->id!='1')
                         | <a id="delete-user-{{ $user->id }}" href="#confirmDelete" onclick="setDeleteId({{ $user->id }})" data-toggle="modal"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                         @endif
                     </td>

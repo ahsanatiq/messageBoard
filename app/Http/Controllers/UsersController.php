@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CreatedAdmin;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,9 @@ class UsersController extends Controller
             'role_id' => $request->input('role_id'),
             'password' => bcrypt($password),
         ]);
-
+        if($user->role->name=='Admin') {
+            \Notification::send($user, new CreatedAdmin($password));
+        }
         return redirect()->route('users.index')
             ->with(['status'=>'success'])
             ->with(['message'=>'User successfully created']);

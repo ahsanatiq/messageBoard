@@ -21,7 +21,7 @@
             'placeholder'=>'Email',
             'id'=>'email'
         ];
-        if(isset($action)&&$action=='edit')
+        if(isset($action)&&($action=='edit'||$action=='update'))
         $emailAttributes['disabled'] = true;
     @endphp
     {!! Form::text('email', old('email'), $emailAttributes) !!}
@@ -114,6 +114,9 @@
     ]) !!}
     <span class="help-block"></span>
 </div>
+@if(isset($action)&&($action=='update'))
+
+@else
 <div class="form-group">
     <label for="role">
         Role
@@ -124,10 +127,12 @@
     ]) !!}
     <span class="help-block"></span>
 </div>
+@endif
 
 {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+@if(isset($action)&&($action!='update'))
 {!! Html::link(route('users.index'),'Cancel', ['class'=>'btn btn-default']) !!}
-
+@endif
 
 @section('footer')
     <script language="javascript">

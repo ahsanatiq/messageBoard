@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -11,6 +12,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('first.login', ['except'=>['password','updatePassword']]);
     }
 
     public function index()
@@ -20,34 +22,25 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-    	$user = auth()->user();
-        $rules = array_only(User::$rules,['firstName','lastName']);
+        $rules = array_except(User::$rules,['email']);
+        $this->validate($request, $rules);
 
-        if($request->avatar)
-            $rules = array_add($rules, 'avatar', 'file|image');
+        $user = auth()->user();
+        $user->update([
+            'name' => $request->input('name'),
+            'phone' => $request->input('phone'),
+            'website' => $request->input('website'),
+            'country' => $request->input('country'),
+            'region' => $request->input('region'),
+            'district' => $request->input('district'),
+            'city' => $request->input('city'),
+            'address' => $request->input('address'),
+            'object_type' => $request->input('object_type'),
+        ]);
 
-        $this->validate($request,$rules);
-
-        $user->first_name = $request->firstName;
-        $user->last_name = $request->lastName;
-        $user->timezone = $request->timezone;
-
-        if($request->avatar)
-        {
-            $oldAvatar = $user->avatar;
-            $avatarFilename = time().'_'.$user->id.'.'.$request->avatar->extension();
-            $newAvatar = Image::make($request->avatar)->fit(150);
-            \Storage::disk('public')->put('avatars/'.$avatarFilename, $newAvatar->encode());
-            if($oldAvatar) {
-                \Storage::disk('public')->delete('avatars/'.$oldAvatar);
-            }
-            $user->avatar = $avatarFilename;
-        }
-        $user->save();
-
-        return redirect()->back()
-    			->with(['status'=>'success'])
-    			->with(['message'=>'Profile successfully updated']);
+        return redirect()->route('profile.index')
+            ->with(['status'=>'success'])
+            ->with(['message'=>'Profile successfully updated']);
     }
 
     public function password()
@@ -58,16 +51,25 @@ class ProfileController extends Controller
     public function updatePassword(Request $request)
     {
     	$rules = [];
+    	$messages = [];
     	$rules = array_add($rules, 'current_password', 'required');
-    	$rules = array_add($rules, 'new_password', User::$rules['password'].'|confirmed');
-    	$this->validate($request,$rules);
+    	$rules = array_add($rules, 'new_password', 'required|confirmed');
+        if(!auth()->user()->first_login){
+            $rules = array_add($rules, 'agree', 'accepted');
+            $messages = ['agree.accepted'=>'Please agree to the terms of services and privacy policy'];
+        }
+    	$this->validate($request,$rules,$messages);
 
     	$user = auth()->user();
-    	if($user->password==bcrypt($request->password_current))
-    		$request->password_match = true;
+        if(Hash::check($request->current_password, $user->password)) {
+            $user->password = bcrypt($request->new_password);
+            $user->first_login = true;
+            $user->save();
+
+            return redirect()->route('home');
+        }
     	$rules = ['password_match'=>'accepted'];
     	$messages = ['password_match.accepted'=>'current password does not match'];
     	$this->validate($request,$rules,$messages);
-    	// dd($rules);
     }
 }

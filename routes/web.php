@@ -23,4 +23,6 @@ Route::post('/pages/delete', 'PagesController@delete')->name('pages.delete');
 Route::get('/pages/add', 'PagesController@add')->name('pages.add');
 Route::post('/pages/add', 'PagesController@create')->name('pages.create');
 Route::get('/pages/view/{id}', 'PagesController@view')->name('pages.view');
+Route::get('/message/add', 'MessagesController@add')->name('messages.add');
+Route::post('/message/add', 'MessagesController@create')->name('messages.create');
 

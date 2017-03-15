@@ -9,7 +9,8 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth','auth.role']);
+        $this->middleware(['auth','auth.role'], ['except' => 'view']);
+        $this->middleware('first.login');
     }
 
     public function index()
