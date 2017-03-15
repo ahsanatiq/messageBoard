@@ -1,40 +1,167 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Message Board
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Message board portal based on [Laravel framework](http://www.laravel.com) 
 
-## About Laravel
+## Install Dependencies
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+To run the application, you will need
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* PHP >= 7.0, as well as few PHP extensions (PDO, OpenSSL, MbString)
+* Composer 
+* Apache >= 2.4
+* MySQL >= 5.6 / MariaDB >= 15
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+### Install Apache on Linux (Ubuntu 16.04) 
 
-## Learning Laravel
+`$ sudo apt-get update`
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+`$ sudo apt-get install apache2`
+  
+ Next, we will add a single line to the `/etc/apache2/apache2.conf` file to suppress a warning message.
+   
+Open up the main configuration file with your text edit:
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+`$ sudo nano /etc/apache2/apache2.conf`   
 
-## Contributing
+Inside, at the bottom of the file, add a ServerName directive, pointing to your primary domain name. If you do not have a domain name associated with your server:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+    ServerName example.com
+    ServerAlias public.example.com
+    ServerAlias private.example.com
 
-## Security Vulnerabilities
+Restart Apache to implement your changes:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+`$ sudo systemctl restart apache2`
 
-## License
+### Install MySQL on Linux (Ubuntu 16.04)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Again, we can use apt to acquire and install our software:
+
+`$ sudo apt-get install mysql-server`
+
+During the installation, your server will ask you to select and confirm a password for the MySQL "root" user. This is an administrative account in MySQL that has increased privileges. Think of it as being similar to the root account for the server itself (the one you are configuring now is a MySQL-specific account, however). Make sure this is a strong, unique password, and do not leave it blank.
+
+When the installation is complete, we want to run a simple security script that will remove some dangerous defaults and lock down access to our database system a little bit. Start the interactive script by running:
+
+`$ sudo mysql_secure_installation`
+
+For the rest of the questions, you should press Y and hit the Enter key at each prompt. This will remove some anonymous users and the test database, disable remote root logins, and load these new rules so that MySQL immediately respects the changes we have made.
+
+At this point, your database system is now set up and we can move on.
+
+### Install PHP on Linux (Ubuntu 16.04) 
+
+We can once again leverage the apt system to install our components. We're going to include some helper packages as well, so that PHP code can run under the Apache server and talk to our MySQL database:
+
+`$ sudo apt-get install php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd`
+This should install PHP without any problems. We'll test this in a moment.
+
+In most cases, we'll want to modify the way that Apache serves files when a directory is requested. Currently, if a user requests a directory from the server, Apache will first look for a file called index.html. We want to tell our web server to prefer PHP files, so we'll make Apache look for an index.php file first.
+
+To do this, type this command to open the dir.conf file in a text editor with root privileges:
+
+`$ sudo nano /etc/apache2/mods-enabled/dir.conf`
+
+After this, we need to restart the Apache web server in order for our changes to be recognized. You can do this by typing this:
+
+`$ sudo systemctl restart apache2`
+
+### Install Composer on Linux (Ubuntu 16.04) 
+
+`$ curl -sS https://getcomposer.org/installer | php`
+
+`$ mv composer.phar /usr/local/bin/composer`
+
+Now just run `composer` in order to run Composer 
+
+## Setup and run application
+
+Unzip the project files in the folder `/var/www/example.com`
+
+grant appropriate permissions to the directories:
+
+`$ sudo chown -R $USER:$USER /var/www/example.com`
+
+`$ sudo chmod -R 755 /var/www/example.com`
+
+`$ sudo chmod -R 777 /var/www/example.com/storage`
+
+install all the dependencies through the composer package manager
+
+`$ cd /var/www/example.com`
+
+`$ composer install`
+
+create the mysql database on the system
+
+`$ mysql -u root -p`
+
+`mysql> create database board;`
+
+`mysql> exit;`
+
+copy and open the application config file
+
+`$ cp .env.example .env`
+
+`$ vim .env`
+
+set the following variables:
+
+`APP_ENV=production`
+
+`APP_DEBUG=false`
+ 
+`APP_URL=<your public URL>`
+
+`SESSION_DOMAIN=<prefix the above URL with '.'>`
+ 
+`DB_DATABASE=<your mysql database created>`
+
+`DB_USERNAME=<your mysql username>`
+
+`DB_PASSWORD=<your mysql password>`
+ 
+`MAIL_HOST=<sendgrid host>`
+ 
+`MAIL_USERNAME=<sendgrid username>`
+
+`MAIL_PASSWORD=<sendgrid password>`
+
+run the migration to import the necessary table structure
+
+`$ php artisan migrate --seed`
+
+create a symbolic link from "public/storage" folder to "storage/app/public"
+
+`$ php artisan storage:link`
+
+create the virtual host to the public folder 
+
+`$ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf`
+
+`$ sudo vim /etc/apache2/sites-available/example.com.conf`
+
+put the following content in the file:
+
+    <VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/example.com/public
+        ServerName example.com
+        ServerAlias public.example.com
+        ServerAlias private.example.com
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+ 
+enable the new virtual host:
+
+`$ sudo a2ensite example.com.conf`
+    
+restart Apache to make these changes take effect:
+
+`$ sudo systemctl restart apache2`
+     
+check the application: 
+
+`http://example.com`
