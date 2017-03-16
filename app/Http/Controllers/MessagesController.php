@@ -33,7 +33,7 @@ class MessagesController extends Controller
         $imageName = '';
         if ($request->image) {
             $imageName = time() . '_' . $user->id . '.' . $request->image->extension();
-            $newImage = Image::make($request->image)->fit(300);
+            $newImage = Image::make($request->image)->resize(600,null);
             \Storage::disk('public')->put($imageName, $newImage->encode());
         }
         Message::create([
