@@ -15,7 +15,7 @@ class AuthenticateRole
     public function handle($request, Closure $next)
     {
         if ($this->auth->user()->role && $this->auth->user()->role->name!='Super Admin') {
-            return abort(400, 'Not allowed');
+            return abort(401, 'Un-Authorized Access. Not allowed.');
         }
         return $next($request);
     }
