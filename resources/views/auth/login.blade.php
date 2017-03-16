@@ -42,7 +42,7 @@
 
             </div>
             <div class="text-center">
-                {!! Form::submit('Log In', ['id'=>'login-button','class'=>'def-btn btn-solid']) !!}
+                {!! Form::submit('Log In', ['id'=>'login-button','class'=>'btn btn-primary']) !!}
             </div>
             {!! Form::close() !!}
         </div>
