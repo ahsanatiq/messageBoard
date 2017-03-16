@@ -51,13 +51,14 @@ class MessagesController extends Controller
     }
 
     public function showPublic() {
-        $messages = Message::whereType('public')->get();
+        $messages = Message::whereType('public')->orderBy('created_at','desc')->get();
         return view('messages.show', compact('messages'));
     }
 
     public function showPrivate() {
         $messages = Message::whereType('private')
                             ->where('private_email',auth()->user()->email)
+                            ->orderBy('created_at','desc')
                             ->get();
         return view('messages.show', compact('messages'));
     }

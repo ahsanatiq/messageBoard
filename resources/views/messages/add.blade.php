@@ -88,6 +88,7 @@
                     }
                 }
 
+                $('#js-form input[type=submit]').attr('disabled','true');
                 return true;
             });
 
