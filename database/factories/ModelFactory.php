@@ -24,7 +24,7 @@ $factory->define(App\Message::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'detail' => $faker->paragraph(),
-        'type' => $faker->randomElement(['public', 'private']),
+        'type' => 'public',
         'user_id' => User::where('role_id',$adminRole->id)->first()->id
     ];
 });

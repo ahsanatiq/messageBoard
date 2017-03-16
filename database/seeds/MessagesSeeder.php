@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class MessagesSeeder extends Seeder
@@ -11,6 +12,16 @@ class MessagesSeeder extends Seeder
      */
     public function run()
     {
+        // create 10 public messages
         factory(\App\Message::class,30)->create();
+
+        // create 10 private message for each user
+        $users = User::all();
+        foreach ($users as $user) {
+            factory(\App\Message::class,10)->create([
+                'type'=>'private',
+                'private_email'=>$user->email
+            ]);
+        }
     }
 }
