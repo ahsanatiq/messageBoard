@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('layouts.nav')
 
 <div class="container text-center">
     <h1>
