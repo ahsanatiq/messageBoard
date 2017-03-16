@@ -32,7 +32,7 @@
                         </div>
                         @endif
                         <div class="text-center mar-t-40">
-                            {!! Form::submit('Update',['class'=>'def-btn btn-solid']) !!}
+                            {!! Form::submit('Update',['class'=>'btn btn-primary']) !!}
                         </div>
                     {!! Form::close() !!}
                 </div>
