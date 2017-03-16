@@ -14,6 +14,10 @@
     <br>
     <div class="row">
         @forelse($messages as $message)
+            @if($loop->index%3==0)
+                </div>
+                <div class="row">
+            @endif    
         <div class="col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
