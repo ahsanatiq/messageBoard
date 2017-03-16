@@ -29,7 +29,10 @@
                     @if($message->image)
                     <img src="{{ asset('/storage/'.$message->image) }}" class="img-responsive">
                     @endif
-                    {{ $message->detail }}
+                    <p>{{ $message->detail }}</p>
+                    <div>
+                        <small class="text-muted">Posted by: {{ $message->user->name }}</small>
+                    </div>
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ class PagesSeeder extends Seeder
             'name'   => 'Home',
             'detail' => '<div class="jumbotron">
                             <h1>Hello World!</h1>
-                            <p>This is a demo message message board .</p>
+                            <p>This is a demo message board.</p>
                           </div>',
             'menu_name' => 'Home',
             'status' => 'active',
