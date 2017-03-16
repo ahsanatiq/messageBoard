@@ -3,7 +3,14 @@
 
 @section('content')
 <div class="container">
-    <h1>Public Messages</h1>
+    <h1>
+        @if (Route::is('messages.showPrivate'))
+            Private
+        @else
+            Public
+        @endif
+        Messages
+    </h1>
     <br>
     <div class="row">
         @forelse($messages as $message)
