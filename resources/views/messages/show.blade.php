@@ -15,10 +15,12 @@
     <div class="row">
         @forelse($messages as $message)
             @if($loop->index%3==0)
-                </div>
-                <div class="row">
+                <div class="clearfix visible-md-block visible-lg-block"></div>
             @endif
-        <div class="col-sm-4">
+            @if($loop->index%2==0)
+                <div class="clearfix visible-sm-block"></div>
+            @endif
+        <div class="col-sm-6 col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">{{ $message->name }}</h3>
@@ -31,6 +33,7 @@
                 </div>
             </div>
         </div>
+
         @empty
             <div class="alert alert-info" role="alert">Sorry, no messages found</div>
         @endforelse
