@@ -4,7 +4,7 @@
 @include('layouts.nav')
 <section class="setting sec-hq-pad">
     <div class="container">
-        <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+        <div class="col-sm-6 col-sm-offset-3">
             <div class="change-password">
                 <div class="text-center">
                     <h1 class="sec-q-pad-b">Change Password</h1>
