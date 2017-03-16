@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
 @section('content')
+@include('layouts.nav')
     <div class="container">
         <h1>Update User</h1>
         {!! Form::model($user, ['route'=>['users.update',$user->id], 'id'=>'js-form']) !!}

@@ -1,7 +1,7 @@
 @extends('layouts.app') 
-@include('layouts.nav') 
 
 @section('content')
+@include('layouts.nav')
 <section class="setting sec-hq-pad">
     <div class="container">
         <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
@@ -40,7 +40,6 @@
         </div>
     </div>
 </section>
-@endsection
 
 <!-- Terms_Service Modal -->
 <div class="modal fade" id="terms_service" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -77,3 +76,4 @@
         </div>
     </div>
 </div>
+@endsection

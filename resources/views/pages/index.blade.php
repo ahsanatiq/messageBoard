@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
+@section('content')
+@include('layouts.nav')
 <div class="container">
     <div>
         <h1 class="pull-left">Manage Pages</h1>
@@ -67,6 +68,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 @section('footer')
 <script language="javascript">

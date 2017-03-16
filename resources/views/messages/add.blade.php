@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
 @section('content')
+@include('layouts.nav')
     <div class="container">
         <h1>Create Message</h1>
         {!! Form::open(['route'=>'messages.create', 'id'=>'js-form','files'=>true]) !!}

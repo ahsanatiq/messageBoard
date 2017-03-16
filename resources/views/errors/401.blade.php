@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
+@section('content')
+@include('layouts.nav')
 <div class="container text-center">
     <h1>
         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
@@ -8,3 +9,4 @@
         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
     </h1>
 </div>
+@endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
 @section('content')
+@include('layouts.nav')
     <section class="login-page sec-hq-pad">
         <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
             <div class="text-center">

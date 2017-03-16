@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@include('layouts.nav')
+
 @section('content')
+@include('layouts.nav')
     Hello
 @endsection

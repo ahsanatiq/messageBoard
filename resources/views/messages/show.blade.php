@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@include('layouts.nav')
 
 @section('content')
+@include('layouts.nav')
 <div class="container">
     <h1>
         @if (Route::is('messages.showPrivate'))
