@@ -51,7 +51,7 @@ class UsersController extends Controller
     }
 
     public function edit($id) {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('users.edit', compact('user'));
     }
 
@@ -59,7 +59,7 @@ class UsersController extends Controller
         $rules = array_except(User::$rules,['email']);
         $this->validate($request, $rules);
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->update([
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),

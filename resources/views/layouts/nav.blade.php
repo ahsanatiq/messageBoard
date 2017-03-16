@@ -12,7 +12,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 @foreach($pagesList as $page)
-                <li><a href="{{ route('pages.view',['id'=>$page->id]) }}">{{ $page->name }}</a></li>
+                <li @if(isset($nav_active_page) && $nav_active_page==$page->id)class="active"@endif>
+                    <a href="{{ route('pages.view',['id'=>$page->id]) }}">{{ $page->name }}
+                    </a>
+                </li>
                 @endforeach
             </ul>
             <ul class="nav navbar-nav navbar-right">

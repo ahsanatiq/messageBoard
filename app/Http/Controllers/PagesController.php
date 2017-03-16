@@ -29,7 +29,7 @@ class PagesController extends Controller
 
         Page::create([
             'name' => $request->input('name'),
-            'detail' => $request->input('detail'),
+            'detail' => $this->clean($request,'detail'),
             'menu_name' => $request->input('menu_name'),
             'status' => $request->input('status'),
             'user_id' => auth()->user()->id,
@@ -41,7 +41,7 @@ class PagesController extends Controller
     }
 
     public function edit($id) {
-        $page = Page::find($id);
+        $page = Page::findOrFail($id);
         return view('pages.edit', compact('page'));
     }
 
@@ -49,10 +49,10 @@ class PagesController extends Controller
 //        $rules = array_except(Page::$rules,['email']);
         $this->validate($request, Page::$rules);
 
-        $page = Page::find($id);
+        $page = Page::findOrFail($id);
         $page->update([
             'name' => $request->input('name'),
-            'detail' => $request->input('detail'),
+            'detail' => $this->clean($request,'detail'),
             'menu_name' => $request->input('menu_name'),
             'status' => $request->input('status'),
         ]);
@@ -68,7 +68,19 @@ class PagesController extends Controller
     }
 
     public function view($id) {
-        $page = Page::find($id);
-        return view('pages.view',compact('page'));
+        $page = Page::findOrFail($id);
+        $nav_active_page = $page->id;
+        return view('pages.view',compact('page','nav_active_page'));
+    }
+
+    public function clean($request, $input) {
+        try {
+            return clean($request->input($input));
+        } catch(\ErrorException $e) {
+            return redirect()->back()
+                ->withInput($request->input())
+                ->with(['status'=>'danger'])
+                ->with(['message'=>"Error in Detail Content: ".$e->getMessage()]);
+        }
     }
 }
