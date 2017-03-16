@@ -19,7 +19,9 @@
                 <li><a href="{{ url('http://public.'.parse_url(config('app.url'))['host']) }}">Public Messages</a></li>
                 @if(auth()->user())
                 <li class="dropdown">
-                    <a id="user-menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
+                    <a id="user-menu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ auth()->user()->name }} ({{ auth()->user()->role->name }}) <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('profile.password') }}">Change Password</a></li>
                         <li><a href="{{ route('profile.index') }}">Edit Profile</a></li>
