@@ -18,7 +18,7 @@
 <body>
     @yield('content')
 
-    <footer class="footer" style="margin-top: 10px;">
+    <footer class="footer">
         <div class="container">
             <p class="text-muted">&copy; {{ date('Y').' '.config('app.name').'. All rights reserved.'}}</p>
         </div>
