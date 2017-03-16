@@ -10,7 +10,8 @@ class MessagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'auth.admin.role', 'first.login'], ['except'=>'showPublic']);
+        $this->middleware(['auth', 'first.login'], ['except'=>'showPublic']);
+        $this->middleware(['auth.admin.role'], ['except'=>['showPublic','showPrivate']]);
     }
 
     public function add()
