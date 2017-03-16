@@ -22,7 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Message::class, function (Faker\Generator $faker) {
     $adminRole = Role::whereName('Admin')->first();
     return [
-        'name' => $faker->name,
+        'name' => $faker->words(3,true),
         'detail' => $faker->paragraph(),
         'type' => 'public',
         'user_id' => User::where('role_id',$adminRole->id)->first()->id
