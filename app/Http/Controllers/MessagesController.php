@@ -26,7 +26,7 @@ class MessagesController extends Controller
         if ($request->file('image'))
             $rules['image'] = 'file|image';
         if ($request->file('docs'))
-            $rules['docs.*'] = 'file|mimes:doc,docx,pdf';
+            $rules['docs.*'] = 'file|mimes:doc,docx,pdf,txt';
         if ($request->input('type') == 'private')
             $rules['private_group'] = 'required';
 
