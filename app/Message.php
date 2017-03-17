@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    protected $fillable = [ 'name', 'detail', 'image', 'type', 'private_email', 'user_id'];
+    protected $fillable = [ 'name', 'detail', 'image','docs', 'type', 'private_group', 'user_id'];
 
     public static $rules = [
         'name' => 'required|max:255',

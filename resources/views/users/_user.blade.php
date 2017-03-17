@@ -114,9 +114,8 @@
     ]) !!}
     <span class="help-block"></span>
 </div>
-@if(isset($action)&&($action=='update'))
 
-@else
+@if($action=='create' || $action=='edit')
 <div class="form-group">
     <label for="role">
         Role
@@ -127,10 +126,20 @@
     ]) !!}
     <span class="help-block"></span>
 </div>
+<div class="form-group">
+    <label for="status">
+        Status
+    </label>
+    {!! Form::select('status', $statusList, old('status'), [
+        'class'=>'form-control',
+        'id'=>'status'
+    ]) !!}
+    <span class="help-block"></span>
+</div>
 @endif
 
 {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
-@if(isset($action)&&($action!='update'))
+@if($action!='update')
 {!! Html::link(route('users.index'),'Cancel', ['class'=>'btn btn-default']) !!}
 @endif
 

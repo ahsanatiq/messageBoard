@@ -29,7 +29,7 @@ class ComposerServiceProvider extends ServiceProvider
 
         });
 
-        View::composer(['users.add','users.edit','profile.index'], function ($view) {
+        View::composer(['users.add','users.edit','profile.index', 'messages.add'], function ($view) {
             $view->with('objectTypeList', [
                 '' => 'Select',
                 'alfa'=>'alfa',
@@ -42,6 +42,11 @@ class ComposerServiceProvider extends ServiceProvider
                 $rolesList[$role->id] = $role->name;
             }
             $view->with('rolesList', $rolesList);
+
+            $view->with('statusList', [
+                'Active'=>'Active',
+                'InActive'=>'InActive'
+            ]);
 
             $view->with('countryList', array (
                 '' => 'Select',

@@ -14,11 +14,14 @@
     <div class="table-responsive">
         <table class="table">
             <thead>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Created</th>
-                <th>Actions</th>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
             </thead>
             <tbody>
 
@@ -27,6 +30,7 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name }}</td>
+                    <td>{{ $user->status }}</td>
                     <td>{{ $user->created_at }}</td>
                     <td>
                         <a id="edit-user-{{ $user->id }}" href="{{ route('users.edit', ['id'=>$user->id]) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>

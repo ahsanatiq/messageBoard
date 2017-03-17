@@ -34,7 +34,14 @@
             <label for="image">
                 Image
             </label>
-            {!! Form::file('image',['id'=>'image']) !!}
+            {!! Form::file('image') !!}
+            <span id="js-image-help-block" class="help-block"></span>
+        </div>
+        <div class="form-group">
+            <label for="docs">
+                File
+            </label>
+            {!! Form::file('docs[]',['id'=>'docs','multiple'=>'']) !!}
             <span class="help-block"></span>
         </div>
         <label>
@@ -49,13 +56,12 @@
             </label>
         </div>
         <div class="form-group required">
-            <label for="private_email">
-                Private Email
+            <label for="private_group">
+                User Group
             </label>
-            {!! Form::text('private_email', old('private_email'),[
+            {!! Form::select('private_group', $objectTypeList, old('private_group'), [
                 'class'=>'form-control',
-                'placeholder'=>'Title',
-                'id'=>'private_email'
+                'id'=>'private_group'
             ]) !!}
             <span class="help-block"></span>
         </div>
@@ -67,6 +73,24 @@
 @section('footer')
     <script language="javascript">
         $(function () {
+            $('#js-form input[name=image]').fileinput({
+                'showPreview': false,
+                'showUpload': false,
+                'browseLabel': 'Select Image',
+                'browseClass': 'btn btn-success',
+                'allowedFileExtensions': ['jpg','jpeg','gif','png'],
+                'elErrorContainer': $('#js-form input[name=image]').parent().find('span.help-block'),
+//                'msgErrorClass':null,
+            });
+            $('#js-form input[name="docs[]"]').fileinput({
+                'showPreview': false,
+                'showUpload': false,
+                'browseLabel': 'Select File(s)',
+                'browseClass': 'btn btn-success',
+                'allowedFileExtensions': ['doc','docx','pdf','txt'],
+                'elErrorContainer': $('#js-form input[name="docs[]"').parent().find('span.help-block'),
+            });
+
             $('#js-form').submit(function () {
                 functions.resetError('input[name=name]');
                 if (functions.checkEmpty('input[name=name]')) {
@@ -81,9 +105,9 @@
                 }
 
                 if($('#js-form input[name=type]:checked').val()=='private') {
-                    functions.resetError('input[name=private_email]');
-                    if (functions.checkEmpty('input[name=private_email]')) {
-                        functions.showError('input[name=private_email]', 'Please enter private email')
+                    functions.resetError('select[name=private_group]');
+                    if (functions.checkEmpty('select[name=private_group]')) {
+                        functions.showError('select[name=private_group]', 'Please select user group')
                         return false;
                     }
                 }
@@ -94,9 +118,9 @@
 
             $('#js-form input[name=type]').click(function() {
                 if($('#js-form input[name=type]:checked').val()=='private') {
-                    $('#js-form input[name=private_email]').parent().slideDown();
+                    $('#js-form select[name=private_group]').parent().slideDown();
                 } else {
-                    $('#js-form input[name=private_email]').parent().slideUp();
+                    $('#js-form select[name=private_group]').parent().slideUp();
                 }
             });
             if($('#js-form input[name=type]:checked').length) {

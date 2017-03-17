@@ -32,4 +32,5 @@ Route::group(['domain' => parse_url(config('app.url'))['host']], function () {
     Route::get('/pages/view/{id}', 'PagesController@view')->name('pages.view');
     Route::get('/message/add', 'MessagesController@add')->name('messages.add');
     Route::post('/message/add', 'MessagesController@create')->name('messages.create');
+    Route::get('/file/{id}/{file}', 'MessagesController@downloadFile')->name('messages.download');
 });

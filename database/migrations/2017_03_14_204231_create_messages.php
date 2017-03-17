@@ -18,9 +18,9 @@ class CreateMessages extends Migration
             $table->text('name');
             $table->text('detail');
             $table->string('image')->nullable();
-            $table->text('files')->nullable();
+            $table->text('docs')->nullable();
             $table->enum('type',['public','private']);
-            $table->string('private_email')->nullable()->index();
+            $table->string('private_group')->nullable()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

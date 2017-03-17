@@ -40,6 +40,7 @@ class UsersController extends Controller
             'address' => $request->input('address'),
             'object_type' => $request->input('object_type'),
             'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
             'password' => bcrypt($password),
         ]);
 //        if($user->role->name=='Admin') {
@@ -70,7 +71,8 @@ class UsersController extends Controller
             'city' => $request->input('city'),
             'address' => $request->input('address'),
             'object_type' => $request->input('object_type'),
-            'role_id' => $request->input('role_id')
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status')
         ]);
 
         return redirect()->route('users.index')

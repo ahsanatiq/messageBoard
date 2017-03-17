@@ -21,7 +21,8 @@ class User extends Authenticatable
         'city',
         'address',
         'object_type',
-        'role_id'
+        'role_id',
+        'status'
     ];
 
 

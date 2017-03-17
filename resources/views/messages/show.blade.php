@@ -30,6 +30,17 @@
                     <img src="{{ asset('/storage/'.$message->image) }}" class="img-responsive">
                     @endif
                     <p>{{ $message->detail }}</p>
+                    @php
+                    $docs = [];
+                    if($message->docs)
+                       $docs = json_decode($message->docs, true);
+
+                    @endphp
+                    @foreach($docs as $doc)
+                        <p>
+                            <a href="{{ route('messages.download',['id'=>$message->id,'file'=>$doc['file']]) }}">{{ $doc['name'] }}</a>
+                        </p>
+                    @endforeach
                     <div>
                         <small class="text-muted">Posted by: {{ $message->user->name }}</small>
                     </div>

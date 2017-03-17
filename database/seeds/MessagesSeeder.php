@@ -20,7 +20,7 @@ class MessagesSeeder extends Seeder
         foreach ($users as $user) {
             factory(\App\Message::class,10)->create([
                 'type'=>'private',
-                'private_email'=>$user->email
+                'private_group'=>$user->object_type
             ]);
         }
     }

@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
             $table->boolean('first_login')->default(false);
+            $table->enum('status', ['Active', 'InActive'])->default('Active');
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('no action');
             $table->rememberToken();
