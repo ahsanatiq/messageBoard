@@ -15,8 +15,7 @@
             <ul class="nav navbar-nav">
                 @foreach($pagesList as $page)
                 <li @if(isset($nav_active_page) && $nav_active_page==$page->id)class="active"@endif>
-                    <a href="{{ route('pages.view',['id'=>$page->id]) }}">{{ $page->name }}
-                    </a>
+                    <a href="{{ route('pages.view',['id'=>$page->id]) }}">{{ $page->menu_name }}</a>
                 </li>
                 @endforeach
             </ul>

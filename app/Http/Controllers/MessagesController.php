@@ -104,7 +104,9 @@ class MessagesController extends Controller
         }
 
         if ($found) {
-            return response()->download(public_path('storage/'.$found['file']),$found['name']);
+            return response()->download(public_path('storage/'.$found['file']),$found['name'],[
+                    'Cache-Control' => 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0'
+                ]);
         } else {
             abort(404);
         }
