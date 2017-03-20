@@ -11,8 +11,8 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends DuskTestCase
 {
-//    use DatabaseMigrations;
-    use DatabaseTransactions;
+   use DatabaseMigrations;
+   // use DatabaseTransactions;
 
     public function test_all()
     {
@@ -28,8 +28,8 @@ class LoginTest extends DuskTestCase
 
     public function home_test($browser) {
         return $browser
-            ->visit('/')
-            ->assertSee('Login');
+            ->visit('/pages/view/1')
+            ->assertSee('Hello World');
     }
 
     public function invalid_login_test($browser) {
@@ -38,7 +38,7 @@ class LoginTest extends DuskTestCase
             ->type('email','wrong@email.com')
             ->type('password', 'pass')
             ->press('Log In')
-            ->waitForText('credentials do not match','15');
+            ->waitForText('The email is invalid or the account has been disabled','15');
     }
 
     public function valid_login_test($browser) {
@@ -47,7 +47,7 @@ class LoginTest extends DuskTestCase
             ->type('email', 'superadmin@abc.com')
             ->type('password', 'superadmin')
             ->press('Log In')
-            ->assertPathIs('/home');
+            ->assertPathIs('/pages/view/1');
     }
 
     public function manage_users_test($browser) {
@@ -99,5 +99,17 @@ class LoginTest extends DuskTestCase
             ->click('#user-menu')
             ->assertSee('Logout')
             ->click('#nav-bar-logout');
+    }
+
+    public function runDatabaseMigrations()
+    {
+        $this->artisan('migrate');
+        $this->artisan('db:seed');
+
+        $this->app[Kernel::class]->setArtisan(null);
+
+        $this->beforeApplicationDestroyed(function () {
+            $this->artisan('migrate:rollback');
+        });
     }
 }
