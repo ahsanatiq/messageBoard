@@ -1,27 +1,27 @@
 # Message Board
 
-Message board portal based on [Laravel framework](http://www.laravel.com) 
+Message board portal based on [Laravel framework](http://www.laravel.com)
 
 ## Install Dependencies
 
 To run the application, you will need
 
 * PHP >= 7.0, as well as few PHP extensions (PDO, OpenSSL, MbString)
-* Composer 
+* Composer
 * Apache >= 2.4
 * MySQL >= 5.6 / MariaDB >= 15
 
-### Install Apache on Linux (Ubuntu 16.04) 
+### Install Apache on Linux (Ubuntu 16.04)
 
 `$ sudo apt-get update`
 
 `$ sudo apt-get install apache2`
-  
+
  Next, we will add a single line to the `/etc/apache2/apache2.conf` file to suppress a warning message.
-   
+
 Open up the main configuration file with your text edit:
 
-`$ sudo nano /etc/apache2/apache2.conf`   
+`$ sudo nano /etc/apache2/apache2.conf`
 
 Inside, at the bottom of the file, add a ServerName directive, pointing to your primary domain name. If you do not have a domain name associated with your server:
 
@@ -49,7 +49,7 @@ For the rest of the questions, you should press Y and hit the Enter key at each 
 
 At this point, your database system is now set up and we can move on.
 
-### Install PHP on Linux (Ubuntu 16.04) 
+### Install PHP on Linux (Ubuntu 16.04)
 
 We can once again leverage the apt system to install our components. We're going to include some helper packages as well, so that PHP code can run under the Apache server and talk to our MySQL database:
 
@@ -66,13 +66,13 @@ After this, we need to restart the Apache web server in order for our changes to
 
 `$ sudo systemctl restart apache2`
 
-### Install Composer on Linux (Ubuntu 16.04) 
+### Install Composer on Linux (Ubuntu 16.04)
 
 `$ curl -sS https://getcomposer.org/installer | php`
 
 `$ mv composer.phar /usr/local/bin/composer`
 
-Now just run `composer` in order to run Composer 
+Now just run `composer` in order to run Composer
 
 ## Setup and run application
 
@@ -111,19 +111,19 @@ set the following variables:
 `APP_ENV=production`
 
 `APP_DEBUG=false`
- 
+
 `APP_URL=<your public URL>`
 
 `SESSION_DOMAIN=<prefix the above URL with '.'>`
- 
+
 `DB_DATABASE=<your mysql database created>`
 
 `DB_USERNAME=<your mysql username>`
 
 `DB_PASSWORD=<your mysql password>`
- 
+
 `MAIL_HOST=<sendgrid host>`
- 
+
 `MAIL_USERNAME=<sendgrid username>`
 
 `MAIL_PASSWORD=<sendgrid password>`
@@ -136,7 +136,7 @@ create a symbolic link from "public/storage" folder to "storage/app/public"
 
 `$ php artisan storage:link`
 
-create the virtual host to the public folder 
+create the virtual host to the public folder
 
 `$ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/example.com.conf`
 
@@ -153,15 +153,31 @@ put the following content in the file:
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
- 
+
 enable the new virtual host:
 
 `$ sudo a2ensite example.com.conf`
-    
+
 restart Apache to make these changes take effect:
 
 `$ sudo systemctl restart apache2`
-     
-check the application: 
+
+check the application:
 
 `http://example.com`
+
+## Run Tests
+
+Inorder to run the tests, first need to install PHPUnit & Laravel Dusk
+
+#### Mac OSX / Linux
+
+`$ wget https://phar.phpunit.de/phpunit.phar`
+
+`$ chmod +x phpunit.phar`
+
+`$ sudo mv phpunit.phar /usr/local/bin/phpunit`
+
+`php artisan dusk`
+
+
