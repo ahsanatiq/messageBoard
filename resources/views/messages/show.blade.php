@@ -21,9 +21,9 @@
                 <div class="clearfix visible-sm-block"></div>
             @endif
         <div class="col-sm-6 col-md-4">
-            <div class="panel panel-primary">
+            <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ $message->name }} - Test</h3>
+                    <h3 class="panel-title">{{ $message->name }}</h3>
                 </div>
                 <div class="panel-body">
                     @if($message->image)
